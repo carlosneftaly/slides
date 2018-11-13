@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Introducción a R</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Carlos N. Lozano A, Msc     microbiostats.com     @neftalyl    carlos.lozano@udea.edu.co" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="css\rutgers.css" type="text/css" />
+    <link rel="stylesheet" href="css\rutgers-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introducción a R
+## Curso de Análisis de datos experimentales con R
+### Carlos N. Lozano A, Msc <br> <a href="https://www.microbiostats.com"><i class="fa fa-chrome fa-fw"></i>  microbiostats.com</a><br> <a href="https://twitter.com/neftalyl"> <i class="fa fa-twitter fa-fw"></i>  <span class="citation">@neftalyl</span></a><br> <a href="mailto:carlos.lozano@udea.edu.co"><i class="fa fa-paper-plane fa-fw"></i>  carlos.lozano@udea.edu.co</a><br>
+
+---
+
+
+class: center, middle, inverse
+
+
+
+# 🥇
+
+## Organización de datos en hojas de cálculo
+
+![](https://media.giphy.com/media/r01AEhiPmQsG4/giphy.gif)
+
+---
+
+
+
+##  Se consitente 🍰 ... 
+
+
+
+---
+
+
+
+## Hablemos de **R**
+
+
+
+
+&lt;img src="./img/R.png" width="1040" style="display: block; margin: auto;" /&gt;
+---
+# Standard slide with R code
+
+
+```r
+library(tidyverse)
+ggplot(cars, aes(x = dist, y = speed)) + 
+*  geom_point() + 
+* geom_smooth(method = 'lm', formula = y ~ poly(x, 2)) # we can highlight lines of code 
+```
+
+&lt;img src="IntroR_files/figure-html/unnamed-chunk-3-1.png" width="864" style="display: block; margin: auto;" /&gt;
+
+
+---
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

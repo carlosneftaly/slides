@@ -1,0 +1,64 @@
+---
+title: "Introducción a R"
+subtitle: "Curso de Análisis de datos experimentales con R "
+author: 'Carlos N. Lozano A, Msc <br> <a href="https://www.microbiostats.com"><i class="fa fa-chrome fa-fw"></i>&nbsp; microbiostats.com</a><br> <a href="https://twitter.com/neftalyl"> <i class="fa fa-twitter fa-fw"></i>&nbsp; @neftalyl</a><br> <a href="mailto:carlos.lozano@udea.edu.co"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; carlos.lozano@udea.edu.co</a><br>'
+output:
+  xaringan::moon_reader:
+    #css: ["default", "css/my-theme.css", "css/my-fonts.css"]
+    css: ["css/rutgers.css", "css/rutgers-fonts.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "https://platform.twitter.com/widgets.js"
+    includes:
+      in_header: header.html  
+   
+---
+
+class: center, middle, inverse
+
+
+
+# `r emo::ji("1st_place_medal")`
+
+## Organización de datos en hojas de cálculo
+
+![](https://media.giphy.com/media/r01AEhiPmQsG4/giphy.gif)
+
+---
+
+
+
+##  Se consitente `r emo::ji("cake")` ... 
+
+
+
+---
+
+
+
+## Hablemos de **R**
+
+```{r include=FALSE}
+library(utils)
+```
+
+
+```{r, echo=FALSE,fig.align='center'}
+      knitr::include_graphics('./img/R.png')
+```
+---
+# Standard slide with R code
+
+```{r, fig.height=4.5, fig.width=12, fig.retina=2, fig.align='center', message=FALSE, warning=FALSE}
+library(tidyverse)
+ggplot(cars, aes(x = dist, y = speed)) + 
+  {{geom_point()}} + 
+{{ geom_smooth(method = 'lm', formula = y ~ poly(x, 2))}} # we can highlight lines of code 
+```
+
+
+---
