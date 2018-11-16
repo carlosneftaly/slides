@@ -4,6 +4,7 @@
     <title>Introducción a R</title>
     <meta charset="utf-8">
     <meta name="author" content="Carlos N. Lozano A, Msc     microbiostats.com     @neftalyl    carlos.lozano@udea.edu.co" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="css\rutgers.css" type="text/css" />
     <link rel="stylesheet" href="css\rutgers-fonts.css" type="text/css" />
@@ -31,23 +32,169 @@ class: center, middle, inverse
 
 ---
 
+## Haz un rectángulo 
 
+![](img/dataOrganiz.png )
+
+---
+
+## Haz un rectángulo .... y evita esto 🤦‍♀
+
+![](img/dataOrganiz2.png)
+
+---
+
+## No celdas vacías ⚠️
+
+![](img/dataOrganiz3.png )
+
+---
 
 ##  Se consitente 🍰 ... 
 
 
+.pull-left[
+
++ Codifica correctamente las variables categóricas
+ 
++ Usa nombre de _variables_ apropiados
+ 
++ Codifica adecuadamente los datos perdidos: _NA_ o dejar vacío
+
++ Evitar cálculos y fórmulas 
+
++ Evitar comentarios y unidades en las celdas
+
+]
+
+.pull-right[
+
+| Buen nombre  👏| Alternativa  🙄 | Evitar 💔              |
+|--------------------|-------------|---------------------|
+| Max_Temp_C         | MaxTempC    | Maximum Temp (◦C)   |
+| Cell_Type          | CellType    | Cell Type           |
+| Precipicitacion_mm | Precmm      | Precipitacion mm    |
+| Growth_rate        | GrowthRate  | Tasa de crecimiento |
+
+]
+
+
+---
+
+## 💪 Ejercicio 1
+
+1. Descarga los datos dando [click aquí](https://drive.google.com/file/d/1KX1T63wTuE29yq8nNQz-blTiQyGbZaXV/view?usp=sharing)
+
+2. Abrir en Excel 
+
+3. El archivo contiene 2 hojas. Las cuales corresponden a muestreo realizados en `2013` y `2014` por investigadores diferente. Cada uno tomó los datos a su manera. 
+
+4. Con sus compañeros de fila, identifique los principales problemas del libro y construya una hoja nueva conjunta corregida. 
 
 ---
 
 
+
+
+
+## Ejercicio 1: Solución 
+
+&lt;img src="./img/good_formatting.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+class: center, middle, inverse
+
+
+
+# 🥈
+
+## Introducción a `R` 
+
+![](https://media.giphy.com/media/1FMaabePDEfgk/giphy.gif)
+
+---
+
+
+## Hablemos de `R`
+
+
+
+
+&lt;img src="./img/R.png" width="900px" style="display: block; margin: auto;" /&gt;
+
+---
+
+##  ... Se paciente 🚀
+
+&lt;img src="./img/Rcurve.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
 
 ## Hablemos de **R**
 
+&lt;img src="./img/Ruso.gif" width="800px" style="display: block; margin: auto;" /&gt;
 
-
-
-&lt;img src="./img/R.png" width="1040" style="display: block; margin: auto;" /&gt;
 ---
+
+## Hablemos de **R**
+
+&lt;img src="./img/Rscholar.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+## Instalación de **R**
+
+Podemos instalar **R** desde el siguiente link: https://www.r-project.org/
+
+
+
+|Sistema Operativo | Método   |
+|------------------|----------|
+|   Windows        | https://cran.r-project.org/bin/windows/base/old/3.4.2/R-3.4.2-win.exe |
+|Debian y derivados|`sudo apt-get install r-base`                           |
+|Redhat y derivados| `sudo yum install R-core R-devel`                      |
+|     Mac          | https://www.youtube.com/watch?v=ICGkG7Gg6j0            |
+
+---
+
+## Entornos de desarrollo para R
+
+Una vez instalado, un entorno de desarrollo integrado será necesario para facilitar el desarrollo de códigos en **R**, por lo que se presentan tres de varias opciones para trabajar con **R**. 
+
+|       IDE             |  Link     |
+|:---------------------:|-----------|
+|   Tinn-R              |https://sourceforge.net/projects/tinn-r/ |
+|R-Studio [Recomendado] |https://www.rstudio.com/ |
+| R commander (Rcmdr)   |http://www.rcommander.com/ |
+
+
+&lt;img src="./img/rstudio-.png" width="300px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Rstudio
+
+
+&lt;img src="./img/Rstudio.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+## Flujo de trabajo  sugerido en Rstudio
+
+&lt;img src="./img/rcore.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Flujo de trabajo sugerido en Rstudio
+
+&lt;img src="./img/rcore.png" width="800px" style="display: block; margin: auto;" /&gt;
+---
+
+
+
 # Standard slide with R code
 
 
@@ -58,7 +205,7 @@ ggplot(cars, aes(x = dist, y = speed)) +
 * geom_smooth(method = 'lm', formula = y ~ poly(x, 2)) # we can highlight lines of code 
 ```
 
-&lt;img src="IntroR_files/figure-html/unnamed-chunk-3-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="IntroR_files/figure-html/unnamed-chunk-11-1.png" width="864" style="display: block; margin: auto;" /&gt;
 
 
 ---
