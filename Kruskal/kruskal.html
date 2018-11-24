@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Métodos No - Paramétricos</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Carlos N. Lozano A, Msc     microbiostats.com     @neftalyl    carlos.lozano@udea.edu.co" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="css\rutgers.css" type="text/css" />
+    <link rel="stylesheet" href="css\rutgers-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Métodos No - Paramétricos
+## Curso de Análisis de datos experimentales con R
+### Carlos N. Lozano A, Msc <br> <a href="https://www.microbiostats.com"><i class="fa fa-chrome fa-fw"></i>  microbiostats.com</a><br> <a href="https://twitter.com/neftalyl"> <i class="fa fa-twitter fa-fw"></i>  <span class="citation">@neftalyl</span></a><br> <a href="mailto:carlos.lozano@udea.edu.co"><i class="fa fa-paper-plane fa-fw"></i>  carlos.lozano@udea.edu.co</a><br>
+
+---
+
+
+
+## Supuestos ANOVA
+
+
+&lt;img src="kruskal_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Supuestos ANOVA
+
+
+&lt;img src="./img/homoced.png" width="845" style="display: block; margin: auto;" /&gt;
+
+---
+
+## ¿Y qué pasa si fallan.... ?
+
+&lt;img src="./img/Confs.gif" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+## Prueba de Kruskal - Wallis 
+
+ + Método no paramétrico que permite comparar, en un solo test, los __rangos medios__ de un conjunto de k muestras independientes.
+ 
+ + Análogo a la ANOVA de una vía 
+ 
+ + Útil cunado no se cumplen supuestos de normalidad y homogeneidad de varianzas
+
+  + Una buena opción cuando se tiene muestra pequeña
+
+---
+
+## ¿ Cómo funciona ? 
+
+&lt;img src="./img/tabla1.png" width="400px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## ¿ Cómo funciona ? 
+
+&lt;img src="./img/tabla2.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## ¿ Cómo funciona ? 
+
+$$ SS_{factor} = \sum \Big[n_g(Med_g - Med_{total})^2 \Big]$$
+
+&lt;img src="./img/tabla3.png" width="480" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+## Kruskal - Wallis estadístico _H_
+
+$$ H=\frac{SS_{factor}}{N(N+1)/12} $$
+ + Si el tamaño de grupos k es igual a 3 y el número de observaciones en cada uno no es mayor que 5, se recurre a tablas tabuladas con valores teóricos de H.
+ 
++ En el resto de casos se asume que el estadístico H sigue una distribución `\(\chi^2\)` con k-1 grados de libertad (siendo k el número de grupos a comparar).
+
+---
+
+# Un ejemplo 
+
+&lt;img src="kruskal_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Un ejemplo 
+
+&lt;img src="kruskal_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Un ejemplo 
+
+
+
+
+.pull-left[
+
+## Normalidad
+
+
+```r
+shapiro.test(mod.O$residuals)
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  mod.O$residuals
+## W = 0.93213, p-value = 1.793e-05
+```
+
+
+]
+
+.pull-right[
+
+## Q-Q plot 
+
+```r
+qqnorm(mod.O$residuals); qqline(mod.O$residuals)
+```
+
+![](kruskal_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Un ejemplo
+
+
+
+
+```r
+kruskal(airquality$Ozone, as.factor(airquality$Month), console = T)
+```
+
+```
+## 
+## Study: airquality$Ozone ~ as.factor(airquality$Month)
+## Kruskal-Wallis test's
+## Ties or no Ties
+## 
+## Critical Value: 29.26658
+## Degrees of freedom: 4
+## Pvalue Chisq  : 6.900714e-06 
+## 
+## as.factor(airquality$Month),  means of the ranks
+## 
+##   airquality.Ozone  r
+## 5         36.69231 26
+## 6         48.72222  9
+## 7         77.90385 26
+## 8         75.23077 26
+## 9         48.68966 29
+## 
+## Post Hoc Analysis
+## 
+## t-Student: 1.981567
+## Alpha    : 0.05
+## Groups according to probability of treatment differences and alpha level.
+## 
+## Treatments with the same letter are not significantly different.
+## 
+##   airquality$Ozone groups
+## 7         77.90385      a
+## 8         75.23077      a
+## 6         48.72222      b
+## 9         48.68966      b
+## 5         36.69231      b
+```
+
+---
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
