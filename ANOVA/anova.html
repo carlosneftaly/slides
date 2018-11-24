@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Análisis de varianza ANOVA</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Carlos N. Lozano A, Msc     microbiostats.com     @neftalyl    carlos.lozano@udea.edu.co" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="css\rutgers.css" type="text/css" />
+    <link rel="stylesheet" href="css\rutgers-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Análisis de varianza ANOVA
+## Curso de Análisis de datos experimentales con R
+### Carlos N. Lozano A, Msc <br> <a href="https://www.microbiostats.com"><i class="fa fa-chrome fa-fw"></i>  microbiostats.com</a><br> <a href="https://twitter.com/neftalyl"> <i class="fa fa-twitter fa-fw"></i>  <span class="citation">@neftalyl</span></a><br> <a href="mailto:carlos.lozano@udea.edu.co"><i class="fa fa-paper-plane fa-fw"></i>  carlos.lozano@udea.edu.co</a><br>
+
+---
+
+
+
+
+class: center, middle, inverse
+
+
+
+# 🥇
+
+## Introducción al Diseño de Experimentos 
+
+![](https://media.giphy.com/media/sy5ly1gNlmIdG/giphy.gif)
+
+---
+
+
+# Introducción 
+
+
+
+&lt;img src="./img/proceso.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+
+#  Variables
+
+## Respuestas 
+
++ Es la variable en estudio, aquella cuyos cambios se desean estudiar.
++ Característica observada o medida en cada unidad experimental.
++ Variable dependiente.
++ Suele ser denotada cona la letra _Y_.
+
+## Factores 
+
+ + Cualquier variable nominalposible efecto sobre la respuesta se quiere estudiar.
+ + Cada factor, se devide en  niveles, los cuales representan
+categorías, valores o formas específicas se descompone un factor.
+
+&gt; ¿Cuál(es) serían la(s) variables de respuesta en un experimento
+corto, donde se requiera evaluar el efecto del pH en el desarrollo
+de _E. coli_?
+
+---
+
+
+## Algunos ejemplos
+
+&lt;img src="./img/ejem1.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+
+##  Veamos algunos ejemplos.... 
+
+
+
+&lt;img src="./img/ejem2.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+ 
+
+
+
+
+# Tipos de experimentos 
+
+## Experimentos unifactoriales 
+
+ + Estudia el efecto de un solo factor sobre la variable respuesta.
+
+
++ _Tratamientos_: Conjunto de condiciones experimentales que serán aplicadas a una unidad experimental en un diseño elegido.
+
+&lt;img src="./img/ejem1.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Experimentos factoriales
+
+Es aquel en el que se estudia simultáneamente más de un factor.
+
+
+&lt;img src="./img/multi.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Unidad experimental 
+
+Entidad física que puede asignarse, al azar, a un tratamiento. 
+
+&lt;img src="./img/ue.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Unidad experimental 
+
+ + Caso 1. Considere un experimento donde se requiere evaluar el efecto que tiene el agua del río Medellín sobre lesiones en peces. Se establecieron 2 acuarios, cada uno con 50 peces. Los cuales fueron asignandos aleatoriamente a un tratamiento (contaminado vs. control). Después de 30 días,  se capturan 10 peces de cada acuario y se cuentan el número de lesiones. 
+ 
+&gt; ¿ Cuál sería la unidad experimental? 
+ 
+---
+
+
+# Unidad experimental 
+
+## Caso 2. Suponga las dos siguients situaciones.. 
+
+.pull-left[
+
+El tratamiento es aplicado vía una inyección subcutanea. 
+
+&lt;img src="./img/rat1.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+En este estudio los animales son confinados en jaulas y son tratados con dos tipos de dietas. 
+
+&lt;img src="./img/rat1.png" width="500px" style="display: block; margin: auto;" /&gt;
+]
+
+&gt; ¿Cuál sería la unidad experimental en cada uno de los casos? 
+
+---
+
+
+## Replicación 
+
+&lt;img src="./img/repli.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+
+
+## Grupo control 
+
+.pull-left[
+
+- Se usa como una medida
+de línea de base.
+
+- Es idéntico a todos los
+demás elementos que se
+están estudiando, con la
+excepción de que no recibe
+el tratamiento o la
+manipulación experimental
+que los grupos de interés. 
+]
+
+.pull-right[
+&lt;img src="./img/cg.jpg" width="450px" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+
+## Aleatorización 
+
+&lt;img src="./img/rando.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: center, middle, inverse
+
+
+
+# 🥇
+
+## ANOVA
+
+&lt;img src="./img/tenor4.gif" width="500px" style="display: block; margin: auto;" /&gt;
+---
+
+# Introducción 
+
+
+
+
+
+&lt;img src="anova_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+## ANOVA Unifactorial 
+
+Se refiere a una clase de muestreo o diseños experimentales, en los   cuales la variable __predictora__ o __explicativa__ es   _categórica_ y la variable __respuesta__ es  __continua__.
+
+&lt;img src="anova_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## ANOVA
+
+Se fundamenta en la descomposición de la variación de una variable _respuesta_ `\(\bar{Y}\)`, entre la varainza explicada  y no   explicada por uno o varios factores.
+ 
+ &lt;span style="display:block; height: 2cm;"&gt;&lt;/span&gt;
+ 
+&lt;img src="./img/anova_des.png" width="1047" style="display: block; margin: auto;" /&gt;
+
+--- 
+
+## ANOVA unifactorial: Objetivo
+
+&lt;span style="display:block; height: 2cm;"&gt;&lt;/span&gt;
+El `ANOVA` tiene como objetivos centrales:
+
++ Examinar la contribución relativa de cada una de las fuentes de variación, a la variabilidad total de `\(\bar{y}\)`.
+
++ Probar la hipótesis nula `\((H_0)\)`, que la __media__ de los grupos o tratamientos son iguales. 
+
+---
+
+
+## ANOVA: Una aproximación gráfica 
+
+Cuando analizamos los datos usando análisis de varianza, el primer paso
+es poner a prueba la hipótesis nula global:
+
+$$ H_0: \mu_1 = \mu_2 = \mu_3= .. \mu_I $$
+
+&gt; Contra
+
+
+$$ H_a: \text{al menos una media difiere}$$ 
+
+&lt;img src="anova_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+## ANOVA: Comparando varianzas
+
+Si la varianza __entre grupos__ es similar a la __dentro__ de los grupos: 
+
+&lt;img src="anova_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## ANOVA: Comparando varianzas
+
+Si la varianza __entre grupos__ es similar a la __dentro__ de los grupos: 
+
+&lt;img src="anova_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## ANOVA: Comparando varianzas
+
+Si la varianza __entre grupos__ es mucho mayor que la __dentro__ de los grupos: 
+
+&lt;img src="anova_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## ANOVA: Comparando varianzas
+
+Si la varianza __entre grupos__ es mucho mayor que la __dentro__ de los grupos: 
+
+&lt;img src="anova_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## ANOVA: Particionando la varianza.... 
+
+El ANOVA está construido sobre el concepto de partición de la
+__suma de cuadrados__. La variación total en un conjunto de datos
+puede ser expresada como suma de cuadarados __(SS)__: La diferencia
+entre cada observación `\((Y_i)\)` y la gran media de los datos `\(( \bar{Y} )\)`
+elevado al cuadrado y sumado.
+
+
+
+$$ \underbrace{Y_{ij}}_{Respuesta} = \underbrace{\bar{\mu}}_{\text{Media global}} + \underbrace{\tau_i}_{\text{Efecto del tto}} + \underbrace{e_{ij}}_{\text{Error aleatorio}} $$ 
+
+
+
+$ SS_{total}= SS_{factor}+ SS_{error} $
+
+---
+
+## ANOVA: Suma de cuadrados totales
+
+
+
+$$ SS_{total}=\sum_{i=1}^{a} \sum_{j=1}^{n} (Y_{ij} - \bar{Y})^2 $$
+
+  &lt;span style="display:block; height: 2cm;"&gt;&lt;/span&gt;
+Siendo, 
+ `\(i\)` = 1 hasta __a__ tratamientos ; `\(j\)`= 1 hasta __n__ réplicas.
+ 
+  &lt;span style="display:block; height: 2cm;"&gt;&lt;/span&gt;
+&gt; Refleja la desviación de cada observación de la 'gran media'.
+
+---
+
+## ANOVA: Suma de cuadrados entre grupos 
+
+$$ SS_{factor}=\sum_{i=1}^{a} \sum_{j=1}^{n} (\bar{Y}_{i} - \bar{Y})^2 $$ 
+
+
+
+&lt;img src="./img/betw.png" width="544" style="display: block; margin: auto;" /&gt;
+
+&gt; Representa la diferencia entre las medias de cada grupo o tratamiento con respcto a la media global.
+
+---
+
+## ANOVA: Suma de cuadrados dentro de grupos 
+
+$$ SS_{error}= \sum_{i=1}^{a} \sum_{j=1}^{n} (\bar{Y_{ij}} - \bar{Y_i})^2 $$ 
+
+&lt;img src="./img/into.png" width="521" style="display: block; margin: auto;" /&gt;
+
+&gt; Representa el error aleatorio o variación residual.
+
+---
+
+## ANOVA: Tabla ANOVA
+
+  &lt;span style="display:block; height: 4cm;"&gt;&lt;/span&gt;
+&lt;img src="./img/anova.png" width="1376" style="display: block; margin: auto;" /&gt;
+
+---
+
+## ANOVA: Tabla ANOVA
+
+  &lt;span style="display:block; height: 4cm;"&gt;&lt;/span&gt;
+
+                Df     Sum Sq   Mean Sq   F value   Pr(&gt;F)
+------------  ----  ---------  --------  --------  -------
+Tratamiento      3   2338.947   779.649   756.154        0
+Residuals      796    820.733     1.031        NA       NA
+
+---
+
+## Comprobando Supuestos: Normalidad  
+
+Suponemos que los __errores__ y __las observaciones__, 
+dentro de cada grupo provienen de  poblaciones con distribución normal. 
+
+&lt;span style="display:block; height: 1cm;"&gt;&lt;/span&gt;
+     	 	 
+$$ H_o: \text{Los residuales están normalmente distribuidos.} $$ 
+
+&lt;span style="display:block; height: 1cm;"&gt;&lt;/span&gt;
+
+		
+&gt; $$ H_a: \text{Los residuales no  están normalmente distribuidos.} $$
+
+&lt;span style="display:block; height: 1cm;"&gt;&lt;/span&gt; 
+
+&gt;La idea es no rechazar $ H_o $ para asegurar el cumplimiento del supuesto.
+
+---
+
+## Normalidad: Validación gráfica mediante histogramas
+
+Los histogramas, de forma, exploratoria nos permite determinar _simetría_ y 
+_modalidad_ en nuestros datos.
+
+&lt;img src="anova_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Normalidad: Validación gráfica mediante Q-Q plot
+Los gráficos __cuantil-cuantil__ o __QQ plot__, nos permite contrastar nuestros datos con una distribución normal teórica.
+
+&lt;img src="./assets/img/qqnorm.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Normalidad: Validación gráfica mediante Q-Q plot
+Los gráficos __cuantil-cuantil__ o __QQ plot__, nos permite contrastar nuestros datos con una distribución normal teórica.
+
+&lt;img src="./assets/img/qqnormNO.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Normalidad: Validación mediante Pruebas
+
+ + Shapiro - Wilks  - `shapiro.test()`
+
+```r
+residuos&lt;-rnorm(100, mean = 5, sd = 3)
+shapiro.test(residuos)
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  residuos
+## W = 0.98388, p-value = 0.2628
+```
+
+
+---
+
+## Comprobando Supuestos: Homocedasticidad
+
+Asumen que la varianza en la variable respuesta es la misma 
+en cada nivel, o combinación de los niveles del factor o factores.
+
+&gt; \[H_o: \text{La varianza de `\(Y\)` es igual en cada nivel del factor} \]
+
+&lt;span style="display:block; height: 1cm;"&gt;&lt;/span&gt;
+
+		
+&gt; \[H_a: \text{La varianza de `\(Y\)` no es igual en cada nivel del factor.} \]
+
+&lt;span style="display:block; height: 1cm;"&gt;&lt;/span&gt; 
+
+&gt;La idea es no rechazar `\(H_o\)` para asegurar el cumplimiento del supuesto.
+
+---
+
+
+## Homocedasticidad: Validación gráfica mediante Box-plot
+
+&lt;img src="anova_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Homocedasticidad: Validación gráfica model-plot
+
+&lt;img src="./assets/img/homoced.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Homocedasticidad: Validación mediante pruebas 
+### Prueba de Bartlett - `bartlett.test()`
+ 
+
+```
+## 
+## 	Bartlett test of homogeneity of variances
+## 
+## data:  count by spray
+## Bartlett's K-squared = 25.96, df = 5, p-value = 9.085e-05
+```
+
+```
+## 
+## 	Bartlett test of homogeneity of variances
+## 
+## data:  conformity by fcategory
+## Bartlett's K-squared = 0.33858, df = 2, p-value = 0.8443
+```
+
+---
+
+
+## Homocedasticidad: Validación mediante pruebas 
+### Prueba de Levene - `LeveneTest()`
+ 
+
+```
+## Levene's Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  2   0.046 0.9551
+##       42
+```
+
+```
+## Levene's Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  5  1.4694 0.2219
+##       39
+```
+
+```
+## Levene's Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  5  1.4694 0.2219
+##       39
+```
+
+--- bg:black
+
+## Hay vida después de `\(P &lt; 0.05\)`...
+
+&lt;img src="./assets/img/tenorBx2.gif" style="display: block; margin: auto;" /&gt;
+
+--- 
+
+## ¿Y qué sigue ahora...? 
+
+&lt;img src="./assets/img/Confs.gif" style="display: block; margin: auto;" /&gt;
+
+----
+
+## Comparaciones múltiples
+
+&gt; + Un resultado significantivo en la ANOVA (__F-test__) nos dice que al menos una de las medias es diferente, _pero no cual de ellas es la realmente distinta_.
+
+&gt; + Por lo tanto, necesitamos una prueba que nos compare todas las muestras, estas son llamadas:&lt;p style="color:blue"&gt; Comparaciones múltiples&lt;/p&gt;.
+
+&gt; + Número de comparaciones según los tratamientos: 
+
+\[{k \choose 2} = \frac{k!}{2! (k-2)!} = \frac{k(k-1)}{2} \]
+
+---
+
+## Comparaciones múltiples
+
+&lt;img src="anova_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
+
+---&amp;vcenter
+
+## 
+
+&lt;q&gt;¿Cuál de las medias es diferente a el nivel de significancia usado ? &lt;/q&gt; 
+
+---
+
+## Prueba Honesta de Tukey - Tukey HSD
+&lt;span style="display:block; height: 5cm;"&gt;&lt;/span&gt;
+\[HSD = \frac{\bar{x_1} - \bar{x_2}}{\sqrt{\frac{MS_{Dentro}}{n}}}\]
+
+
+---&amp;twocol
+
+## Prueba Honesta de Tukey - Tukey HSD
+
+*** =left
+![](anova_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+
+*** =right
+
+ &lt;span style="display:block; height: 4cm;"&gt;&lt;/span&gt;
+ 
+
+               Df   Sum Sq   Mean Sq   F value   Pr(&gt;F)
+------------  ---  -------  --------  --------  -------
+Tratamiento     3   60.273    20.091    32.084        0
+Residuals      16   10.019     0.626        NA       NA
+
+
+---
+
+## Prueba Honesta de Tukey - Tukey HSD
+ &lt;span style="display:block; height: 2cm;"&gt;&lt;/span&gt;
+ 
+
+                        difference   pvalue  signif.       LCL      UCL
+---------------------  -----------  -------  --------  -------  -------
+Basamid - Hongos            -4.895    0.000  ***        -6.327   -3.463
+Basamid - Nada              -2.199    0.002  **         -3.631   -0.767
+Basamid - Solarizada        -2.155    0.003  **         -3.587   -0.724
+Hongos - Nada                2.696    0.000  ***         1.264    4.128
+Hongos - Solarizada          2.740    0.000  ***         1.308    4.171
+Nada - Solarizada            0.044    1.000             -1.388    1.475
+
+---
+
+## Prueba de Dunnett 
+
+&lt;span style="display:block; height: 5cm;"&gt;&lt;/span&gt;
+
+ \[D_{Dunnett} = t_{Dunnett} \sqrt{\frac{MS_{error}}{n}}\]
+
+---
+
+## Prueba de Dunnett 
+
+
+```
+## 
+## 	 Simultaneous Tests for General Linear Hypotheses
+## 
+## Multiple Comparisons of Means: Dunnett Contrasts
+## 
+## 
+## Fit: lm(formula = UFC ~ Tratamiento, data = wdata4)
+## 
+## Linear Hypotheses:
+##                        Estimate Std. Error t value Pr(&gt;|t|)    
+## Hongos - Nada == 0       2.6960     0.5005   5.387   &lt;0.001 ***
+## Basamid - Nada == 0     -2.1990     0.5005  -4.394   0.0013 ** 
+## Solarizada - Nada == 0  -0.0436     0.5005  -0.087   0.9995    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## (Adjusted p values reported -- single-step method)
+```
+
+---
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

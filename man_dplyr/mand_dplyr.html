@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Manipulación de datos con dplyr</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Carlos N. Lozano A, Msc     microbiostats.com     @neftalyl    carlos.lozano@udea.edu.co" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="css\rutgers.css" type="text/css" />
+    <link rel="stylesheet" href="css\rutgers-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Manipulación de datos con <code>dplyr</code>
+## Curso de Análisis de datos experimentales con R
+### Carlos N. Lozano A, Msc <br> <a href="https://www.microbiostats.com"><i class="fa fa-chrome fa-fw"></i>  microbiostats.com</a><br> <a href="https://twitter.com/neftalyl"> <i class="fa fa-twitter fa-fw"></i>  <span class="citation">@neftalyl</span></a><br> <a href="mailto:carlos.lozano@udea.edu.co"><i class="fa fa-paper-plane fa-fw"></i>  carlos.lozano@udea.edu.co</a><br>
+
+---
+
+## Manipulación de datos con `dplyr`
+
+`dplyr` es un paquete para manipulación de datos que proporciona un conjunto coherente de verbos para resolver los desafíos más comunes de manipulación de datos:
+
+### Instalación 
+
+
+```r
+install.packages('dplyr')
+```
+
+
+### Verbos 
+
++ `filter()`: selección filas  
++ `mutate()`: Crea una nueva columna
++ `select()`: selecciona columnas
++ `arrange()`: reordena filas
++ `group_by()`: Crea grupo dada una condición 
++ `join()`: Junta diferente _dataframes_
++ `summarise()`: Genera resumenes
+
+---
+
+## `filter()`
+
+Útil cuando se desea filtar _filas_ que satisfacen una condición particular.
+
+&lt;img src="./img/filter2.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+.pull-left[
+
+
+```r
+*filter(datos,
+       status=='Active')
+```
+]
+
+.pull-right[
++ El primer argumento es el `dataframe` que se desar filtar. 
+]
+
+---
+
+
+## `filter()`
+
+Útil cuando se desea filtar _filas_ que satisfacen una condición particular.
+
+&lt;img src="./img/filter2.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+.pull-left[ 
+
+
+```r
+filter(datos, 
+*      status=='Active')
+```
+]
+
+.pull-right[ 
+
++ El primer argumento es el `dataframe` que se desar filtar. 
+
++ El seugndo es la condicón que se desea satisfacer. 
+]
+
+---
+
+
+## `filter()`
+
+
+&lt;img src="./img/filter2.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+.pull-left[ 
+
+
+```r
+filter(datos,
+       status=='Active' &amp; 
+         smoker=='Si')
+```
+]
+
+.pull-right[ 
+
+🤔 🤔  🤔
+🤔 🤔  🤔
+]
+
+---
+
+## `filter()`
+
+
+&lt;img src="./img/filter2.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+.pull-left[ 
+
+
+```r
+filter(datos,
+       status=='Active' &amp; 
+         smoker=='Si')
+```
+]
+
+.pull-right[ 
+
+Se filtra por dos condicones o más usando los operadores `&amp;` o `|`. 
+]
+
+---
+
+
+## `filter()`
+
+
+Las condiciones puede ser evaluadas usando los siguientes operadores: 
+
++ `==`: Igual a
++ `!=`: No igual a
++ `&gt;, &gt;=`: Mayor a, Mayor o igual 
++ `&lt;, &lt;=`: Menor a, Menor o igual a
+
+---
+
+## `filter()`
+
+ + Generemos un subconjuto con los _hombres sedentarios_ y peso mayor a _80_: 
+
+.pull-left[
+
+
+
+
+```r
+datos&lt;-
+  read.csv('Datos/datosS1.csv'
+           ,header = T,
+           sep = ';')
+```
+
+]
+
+.pull-right[
+
+
+
+```r
+datos1&lt;- #&lt;&lt; Nuevo data frame
+  filter(datos, #&lt;&lt; Data frame 
+         sex=='Masculino' &amp;  #&lt;&lt; Condición 1
+         status=='Sedentary', #&lt;&lt; Condicón 2
+         weight&gt;80 )#&lt;&lt; Condicón 3
+```
+
+
+]
+
+
+
+```r
+head(datos1)
+```
+
+```
+##   id    status duration oxygen heartbeat age height weight       sex
+## 1 47 Sedentary      679   31.4       190  37    176     82 Masculino
+## 2 49 Sedentary      727   47.6       210  28    185     84 Masculino
+## 3 54 Sedentary      760   47.2       184  33    182     87 Masculino
+## 4 57 Sedentary      590   35.1       174  42    188     93 Masculino
+## 5 61 Sedentary      660   46.7       190  44    176     81 Masculino
+## 6 65 Sedentary      480   30.2       174  44    172     84 Masculino
+##   smoker
+## 1     Si
+## 2     Si
+## 3     Si
+## 4     Si
+## 5     No
+## 6     Si
+```
+
+
+--- 
+
+
+## `filter()`...... tu turno 
+
+&lt;img src="https://media.giphy.com/media/xT0xeCI09WVWUXS3gk/giphy.gif" width="400px" style="display: block; margin: auto;" /&gt;
+---
+
+
+
+
+## `filter()`.... tu turno 
+
+&lt;img src="https://media.giphy.com/media/xT0xeCI09WVWUXS3gk/giphy.gif" width="400px" style="display: block; margin: auto;" /&gt;
+
+ &lt;span style="display:block; height: 0.5cm;"&gt;&lt;/span&gt;
+
++ Cree un subconjuto llamado `datos2` donde se incluyan *Mujeres no fumadoras no mayores a 50 años y con una duración mayor a 50*.
+
++ Cree un subconjuto llamado `datos3` donde se incluyan individuos fumadores con peso entre 55 y 80.
+---
+
+
+
+## `select()`
+
+Permite obtener `columnas` que cumplen una condición. El primer argumento es el `dataframe` y los argumentos subsequentes las columnas que se desean obtener.
+
+&lt;img src="./img/select.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+
+
+.pull-left[
+### Para seleccionar
+
+
+```r
+select(datos, var1, var2, var3)
+```
+]
+
+.pull-right[
+
+### Para remover 
+
+
+```r
+select(datos, -var1, -var2)
+```
+
+]
+
+---
+
+
+
+## `select()`
+
+Algunas funciones de selección adicional y útiles 
+
+| Función       	| Descripción                         	|
+|---------------	|-------------------------------------	|
+| starts_with() 	| Empieza con un prefijo              	|
+| ends_with()   	| Termina con un prefijo              	|
+| contains()    	| Contiene una cadena de texto        	|
+| num_range()   	| Numerical range like x01, x02, x03. 	|
+| everything()  	| All variables.                      	|
+
+---
+
+
+## mutate()
+
+Esta función agrega una nueva columna al `dataset`. 
+
+&lt;img src="./img/mutate.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+
+```r
+mutate(datos, 
+*      logHb=log(heartbeat))
+```
+
+---
+
+
+## mutate() ..... tu turno 
+
+&lt;img src="https://media.giphy.com/media/5AcR8w022Gk4E/giphy.gif" width="400px" style="display: block; margin: auto;" /&gt;
+&lt;span style="display:block; height: 2cm;"&gt;&lt;/span&gt;
+
+
++ Cree un conjunto de datos llamados `datos5` donde se crea una variable nueva: `VR` que contenga el cociente entre `oxygen` y `duration`. 
+
+---
+
+## `summarize()`
+ 
+Útil para agregar o resumir. A menudo usado en conjunto con otras funciones como: 
+
+.pull-left[
+&lt;img src="./img/sum.png" width="500px" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/sum2.png" width="500px" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+### Funciones útiles 
+
++ `n()`: Cuenta el número de registros
++ `mean()`: Calcula el promedio
++ `median()`: Calcula la mediana
++ `sd()`: Calcula desviación estándar
++ `max()`: Busca el valor máximo
++ `min()`: Busca el valor mínimo
++ `sum()`: Suma todo los valores
++ `n_distinct`: Número de valores distinto en un vector
+
+---
+
+## `summarize()`
+ 
+
+```r
+summarize(datos, mean(oxygen))
+```
+ 
+
+```r
+summarize(datos, r=cor(oxygen, age))
+```
+
+---
+
+## group_by()
+
+Permite agrupar los datos por los niveles de una variable categórica y aplicar, posteriomente, otras funciones
+
+&lt;img src="./img/gby.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+
+```r
+group_by(datos, status)
+```
+
+---
+
+##  Combinando `group_by()` y `summarise()`
+
+```r
+summarize(group_by(datos, status), ProHeart=mean(heartbeat), sdHeart=sd(heartbeat))
+```
+
+```
+## # A tibble: 2 x 3
+##   status    ProHeart sdHeart
+##   &lt;fct&gt;        &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Active        181.    11.4
+## 2 Sedentary     180.    20.2
+```
+---
+
+
+## Ordenes concatenadas usando `%&gt;%`
+
+&lt;img src="./img/pipe.jpg" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Ordenes concatenadas usando `%&gt;%`
+
+El operador `%&gt;%` , del paquete magrittr,  permiter enlazar funciones del tal forma que se ejecuente de forma continua..
+
+
+
+```r
+datos6&lt;-datos %&gt;% group_by(status)  %&gt;%
+  summarise(ProHeart=mean(heartbeat), sdHeart=sd(heartbeat))
+
+datos6
+```
+
+```
+## # A tibble: 2 x 3
+##   status    ProHeart sdHeart
+##   &lt;fct&gt;        &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Active        181.    11.4
+## 2 Sedentary     180.    20.2
+```
+
+---
+
+## Combinando `group_by()`, `summarise()` y `%&gt;%` ... tu turno
+&lt;img src="https://media.giphy.com/media/xRFiDPIVR2Dfy/giphy.gif" width="300px" style="display: block; margin: auto;" /&gt;
+
+
+&gt;0. Cree un conjunto de datos llamado `datos7`
+&gt;1. Selecciones sólo las mujeres (sex: Femenino)
+&gt;2. Agrupe por `smoker` (Si, No)
+&gt;3. Obtenga una variable nueva llamada  `r` donde calcule el coeficiente de correlación `cor()` entre `duration`y `heartbeat`. 
+&gt;4. Agregue la variable `r` a `datos7`
+---
+
+## Respuesta
+
+```r
+datos7&lt;-datos %&gt;% filter(sex=='Femino') %&gt;% group_by(smoker) %&gt;%
+    summarise(r=cor(duration, heartbeat)) %&gt;%mutate(r)
+```
+
+---
+
+
+## Combinando `group_by()`, `summarise()` y `%&gt;%` ... tu turno
+
+
+&lt;img src="https://media.giphy.com/media/xRFiDPIVR2Dfy/giphy.gif" width="300px" style="display: block; margin: auto;" /&gt;
+
+¿ Cuál es el promedio de `heartbeat`para hombres fumadores que tuvieron una duration mayor a 600? 
+
+
++ Cree un conjunto de datos llamado `datos8`
+
+
+---
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

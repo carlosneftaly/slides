@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Estadística descriptiva y análisis exploratorio en R</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Carlos N. Lozano A, Msc     microbiostats.com     @neftalyl    carlos.lozano@udea.edu.co" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="css\rutgers.css" type="text/css" />
+    <link rel="stylesheet" href="css\rutgers-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Estadística descriptiva y análisis exploratorio en R
+## Curso de Análisis de datos experimentales con R
+### Carlos N. Lozano A, Msc <br> <a href="https://www.microbiostats.com"><i class="fa fa-chrome fa-fw"></i>  microbiostats.com</a><br> <a href="https://twitter.com/neftalyl"> <i class="fa fa-twitter fa-fw"></i>  <span class="citation">@neftalyl</span></a><br> <a href="mailto:carlos.lozano@udea.edu.co"><i class="fa fa-paper-plane fa-fw"></i>  carlos.lozano@udea.edu.co</a><br>
+
+---
+
+
+## Datos
+
+En estadística, 'los datos' se conceptualizan como un conjunto de  &lt;span style="color:#FF4000"&gt;objetos&lt;/span&gt; sobre los cuales medimos u observamos una o más &lt;span style="color:#DF0101"&gt;características &lt;/span&gt;. 
+
+
+&lt;img src="./img/data2.jpg" style="display: block; margin: auto;" /&gt;
+---
+
+## Variables
+ 
+ &lt;span style="display:block; height: 2cm;"&gt;&lt;/span&gt;
+
+&lt;q&gt; Una característica o atributo que puede  &lt;span style="color:#FF4000"&gt;variar&lt;/span&gt;  de un individuo a otro. &lt;/q&gt;
+
+---
+
+## Variables
+
+.pull-left[
+
+- &lt;span style="color:orange"&gt;Inviduo &lt;/span&gt;
+- Observación
+- sujeto
+- objeto
+- caso
+- **Unidad experimental**
+
+]
+
+.pull-right[
+- &lt;span style="color:orange"&gt;Variables &lt;/span&gt;
+- Característica
+- Atributo
+- Rasgo
+]
+
+---
+
+## Variable
+
+&lt;img src="./img/flujo.jpg" style="display: block; margin: auto;" /&gt;
+---
+
+## Variable
+
+
+&lt;img src="./img/Var.jpg" style="display: block; margin: auto;" /&gt;
+---
+
+
+class: center, middle, inverse
+
+## Estadística descriptiva
+
+![](https://media.giphy.com/media/9ADoZQgs0tyww/giphy.gif)
+
+---
+
+## Caso 1: Unas cuantas manzanas.... 
+
+&lt;img src="./img/1.png" width="988" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Caso 1: Unas cuantas manzanas.... 
+
+&lt;img src="./img/2.png" width="1207" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+## Caso 2: Unas cuantas manzanas.... 
+
+
+&lt;img src="./img/3.png" width="1097" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Caso 2: Unas cuantas manzanas.... 
+
+
+&lt;img src="./img/4.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Caso 3: Muchas más manzanas....
+
+
+&lt;img src="./img/5.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Caso 3: Muchas más manzanas....
+
+
+&lt;img src="./img/6.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+## Tablas de frecuencia
+
+&lt;img src="./img/fre.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Tablas de frecuencia 
+
+
+
+| Acidity | Conteo |
+|:-------:|:------:|
+|Low      |    23    |
+|Medium     |   12     |
+|High         |  35      |
+
+
+
+---
+
+## Resumiendo variables numéricas...
+
+&lt;img src="./img/flujoMed.jpg" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Medidas de tendencia central 
+
+&lt;span style="display:block; height: 2cm;"&gt;&lt;/span&gt;
+
+- Media: Promedio
+
+- Mediana: Punto medio o central 
+
+- Moda: Más común o frecuente
+
+---
+
+
+## Media 
+
+`$$\bar x = \frac{1}{n}\sum_{i = 1}^{n} x_i$$`
+
+
+
+&lt;img src="./img/media.png" width="519" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Mediana 
+
+Es el punto medio o central de una distribución ordenada de valores. 
+
+
+&lt;img src="./img/mediana.png" width="1283" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="./img/mediana2.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+## Variables categóricas: Representación gráfica
+### Gráfico de tortas
+&lt;img src="eda_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Variables categóricas: Representación gráfica
+### Gráfico de barras
+&lt;img src="eda_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: center, middle, inverse
+
+## Análisis exploratorio de datos (EDA)
+
+![](https://media.giphy.com/media/l4KibOaou932EC7Dy/giphy.gif)
+
+---
+
+## Análisis exploratorio de datos 🥅
+
+
+&lt;blockquote&gt; 
+" EDA no es un proceso formal con un conjunto estricto de reglas. Más que nada, EDA es un estado de ánimo. Durante las fases iniciales de EDA, debería sentirse libre de investigar cada idea que se le ocurra. Algunas de estas ideas se desarrollarán y otras serán callejones sin salida. A medida que continúe su exploración, se concentrará en algunas áreas particularmente productivas que eventualmente escribirá y se comunicará con otros."
+&lt;/blockquote&gt;
+
+
+
+1. Generar preguntas a partir de los datos 
+
+2. Buscar respuestas mediante la visualización de los datos
+
+3. Refinar hipótesis o formular nuevas
+---
+
+
+## Análisis exploratorio de datos: Histograma
+
+&lt;img src="eda_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Dot plots o gráficos de puntos
+
+
+&lt;img src="eda_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+--- 
+
+## Boxplot o Cajas y bigotes
+
+&lt;img src="./img/boxplot3.png" width="1416" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+## Boxplot o Cajas y bigotes 
+
+&lt;img src="./img/bxp.png" width="1012" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Boxplot o Cajas y bigotes
+
+&lt;img src="eda_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Scatterplot o Gráfico de dispersión 
+
+
+&lt;img src="eda_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Ejercicio
+
+1. Cada fila debe tomar unos de los siguientes set de datos contenidos en R:
+
+ + Fila 1: ?iris
+ + Fila 2: ?mtcars
+ + Fila 3: ?ToothGrowth
+ + Fila 4: ?CO2
+ + Fila 5: ?airquality  
+ + Fila 6: ?diamonds
+ + Fila 7: ?Loblolly
+ 
+2. Conducir un análisis descriptivo
+3. Conducir un análisis exploratorio donde se planteen al menos dos preguntas respaldas con sus respectivas gráficas.  
+4. Una Presentación flash en PowerPoint de 3 minutos
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
